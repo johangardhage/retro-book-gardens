@@ -12,6 +12,8 @@ rule cc
 
 build $builddir/raycast: cc $srcdir/raycast.cpp
 build $builddir/raycastlight: cc $srcdir/raycastlight.cpp
+build $builddir/raytrace: cc $srcdir/raytrace.cpp
 
 build raycast: phony $builddir/raycast
 build raycastlight: phony $builddir/raycastlight
+build raytrace: phony $builddir/raytrace
