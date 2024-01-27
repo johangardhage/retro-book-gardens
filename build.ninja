@@ -1,0 +1,12 @@
+cc = g++
+ccflags = -Wall -g
+linux = $ccflags `sdl2-config --cflags --libs`
+windows = $ccflags -Dmain=SDL_main -lmingw32 -lSDL2main -lSDL2 -mwindows
+builddir = build
+srcdir = src
+
+rule cc
+  command = $cc $in $linux -o $out
+#  command = $cc $in $windows -o $out.
+  description = Building executable $out
+
