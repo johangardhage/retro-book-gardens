@@ -10,3 +10,34 @@ rule cc
 #  command = $cc $in $windows -o $out.
   description = Building executable $out
 
+build $builddir/bitmapmaze: cc $srcdir/bitmapmaze.cpp
+build $builddir/bitmapmaze2: cc $srcdir/bitmapmaze2.cpp
+build $builddir/polymaze: cc $srcdir/polymaze.cpp
+build $builddir/heightmap: cc $srcdir/heightmap.cpp
+build $builddir/heightmap2: cc $srcdir/heightmap2.cpp
+build $builddir/lightmap: cc $srcdir/lightmap.cpp
+build $builddir/lightmap2: cc $srcdir/lightmap2.cpp
+build $builddir/wiremaze: cc $srcdir/wiremaze.cpp
+build $builddir/raytrace: cc $srcdir/raytrace.cpp
+build $builddir/floor: cc $srcdir/floor.cpp
+build $builddir/wallspoly: cc $srcdir/wallspoly.cpp
+build $builddir/walls: cc $srcdir/walls.cpp
+build $builddir/raycast: cc $srcdir/raycast.cpp
+build $builddir/raycastlight: cc $srcdir/raycastlight.cpp
+build $builddir/gardens: cc $srcdir/gardens.cpp
+
+build bitmapmaze: phony $builddir/bitmapmaze
+build bitmapmaze2: phony $builddir/bitmapmaze2
+build polymaze: phony $builddir/polymaze
+build heightmap: phony $builddir/heightmap
+build heightmap2: phony $builddir/heightmap2
+build lightmap: phony $builddir/lightmap
+build lightmap2: phony $builddir/lightmap2
+build wiremaze: phony $builddir/wiremaze
+build raytrace: phony $builddir/raytrace
+build floor: phony $builddir/floor
+build wallspoly: phony $builddir/wallspoly
+build walls: phony $builddir/walls
+build raycast: phony $builddir/raycast
+build raycastlight: phony $builddir/raycastlight
+build gardens: phony $builddir/gardens
