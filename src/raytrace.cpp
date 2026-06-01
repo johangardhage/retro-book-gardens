@@ -8,7 +8,7 @@
 //
 #include "lib/retro.h"
 #include "lib/retromain.h"
-#include <values.h>
+#include <float.h>
 
 const int RECTANGLE = 1;
 const int INFINITE_PLANE = 2;
@@ -96,7 +96,7 @@ int lightsource(int color, vector_type loc, vector_type norm)
 
 int trace_ray(vector_type rayvec, vector_type raystart)
 {
-	double t, prev_t = MAXDOUBLE;
+	double t, prev_t = DBL_MAX;
 	vector_type norm, loc;
 
 	int color = BACKGROUND_COLOR;
