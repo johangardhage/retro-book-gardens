@@ -228,8 +228,8 @@ void draw_maze(map_type map, unsigned char *screen, int xview,
 		int dheight = height;
 		if (top < VIEWPORT_TOP) {
 			dheight -= (VIEWPORT_TOP - top);
-			float yratio = (float)height / WALL_HEIGHT;
-			t += (VIEWPORT_TOP - top) * yratio * 320;
+			float yratio = (float)WALL_HEIGHT / height;
+			t += (int)((VIEWPORT_TOP - top) * yratio) * 320;
 			top = VIEWPORT_TOP;
 		}
 		if (bot > VIEWPORT_BOT)
@@ -262,9 +262,15 @@ void draw_maze(map_type map, unsigned char *screen, int xview,
 
 			while (tyerror >= IMAGE_HEIGHT) {
 
+				// Stop once the clipped visible height has been drawn:
+
+				if (dheight <= 0)
+					break;
+
 				// If so, draw it:
 
 				screen[offset] = textmaps[tileptr];
+				dheight--;
 
 				// Reset error term:
 
