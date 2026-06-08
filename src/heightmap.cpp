@@ -89,9 +89,9 @@ map_type floorheight = {
 // viewer looking at angle VIEWING_ANGLE where angle 0 is due
 // north. (Angles are measured in radians.)
 //
-void draw_maze(map_type wall, map_type floor,
+void draw_maze(map_type wall, map_type flor,
 	map_type floorheight, unsigned char *screen,
-	int xview, int yview,
+	float xview, float yview,
 	float viewing_angle, int viewer_height,
 	unsigned char *textmaps)
 {
@@ -119,8 +119,10 @@ void draw_maze(map_type wall, map_type floor,
 
 		// Get viewer's initial coordinates:
 
-		int xmaze = xview / 64;
-		int ymaze = yview / 64;
+		int xmaze = floor(xview / FINE_GRIDSIZE);
+		int ymaze = floor(yview / FINE_GRIDSIZE);
+
+		if (xmaze < 0 || xmaze >= GRIDWIDTH || ymaze < 0 || ymaze >= GRIDWIDTH) return;
 
 		// Get height of floor under viewer:
 
@@ -228,13 +230,15 @@ void draw_maze(map_type wall, map_type floor,
 
 					// Calculate maze grid coordinates of square:
 
-					xmaze = xcross_x / 64;
-					ymaze = xcross_y / 64;
+					xmaze = floor(xcross_x / FINE_GRIDSIZE);
+					ymaze = floor(xcross_y / FINE_GRIDSIZE);
 
 					// Set x and y to point of ray intersection:
 
 					x = xcross_x;
 					y = xcross_y;
+
+					if (xmaze < 0 || xmaze >= GRIDWIDTH || ymaze < 0 || ymaze >= GRIDWIDTH) break;
 
 					// Find relevant column of texture map:
 
@@ -247,13 +251,15 @@ void draw_maze(map_type wall, map_type floor,
 
 					// Calculate maze grid coordinates of square:
 
-					xmaze = ycross_x / 64;
-					ymaze = ycross_y / 64;
+					xmaze = floor(ycross_x / FINE_GRIDSIZE);
+					ymaze = floor(ycross_y / FINE_GRIDSIZE);
 
 					// Set x and y to point of ray intersection:
 
 					x = ycross_x;
 					y = ycross_y;
+
+					if (xmaze < 0 || xmaze >= GRIDWIDTH || ymaze < 0 || ymaze >= GRIDWIDTH) break;
 
 					// Find relevant column of texture map:
 
@@ -279,6 +285,8 @@ void draw_maze(map_type wall, map_type floor,
 			float ratio = (float)VIEWER_DISTANCE / distance;
 			int screendepth = ratio * (vheight - currentheight);
 			bot = VIEWPORT_CENTER + screendepth;
+			top = lasttop;
+			newheight = currentheight;
 
 			if ((xmaze >= 0) && (xmaze < GRIDWIDTH) &&
 				(ymaze >= 0) && (ymaze < GRIDWIDTH)) {
@@ -400,8 +408,12 @@ void draw_maze(map_type wall, map_type floor,
 
 					// Get maze square intersected by ray:
 
-					int xmazes = px / 64;
-					int ymazes = py / 64;
+					int xmazes = floor((float)px / FINE_GRIDSIZE);
+					int ymazes = floor((float)py / FINE_GRIDSIZE);
+
+					if (xmazes < 0 || xmazes >= GRIDWIDTH || ymazes < 0 || ymazes >= GRIDWIDTH) {
+						continue;
+					}
 
 					// Find relevant column of texture map:
 
@@ -409,7 +421,7 @@ void draw_maze(map_type wall, map_type floor,
 
 					// Which graphics tile are we using?
 
-					int tile = floor[xmazes][ymazes];
+					int tile = flor[xmazes][ymazes];
 
 					// Find offset of tile and column in bitmap:
 
