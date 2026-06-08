@@ -115,6 +115,10 @@ void draw_maze(map_type floor, map_type ceiling, unsigned char *screen,
 			int xmaze = x / 64;
 			int ymaze = y / 64;
 
+			if (xmaze < 0 || xmaze >= 16 || ymaze < 0 || ymaze >= 16) {
+				continue;
+			}
+
 			// Find relevant column of texture map:
 
 			int t = ((int)y & 0x3f) * 320 + ((int)x & 0x3f);
@@ -164,6 +168,10 @@ void draw_maze(map_type floor, map_type ceiling, unsigned char *screen,
 
 			int xmaze = x / 64;
 			int ymaze = y / 64;
+
+			if (xmaze < 0 || xmaze >= 16 || ymaze < 0 || ymaze >= 16) {
+				continue;
+			}
 
 			// Find relevant column of texture map:
 
