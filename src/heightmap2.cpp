@@ -146,8 +146,8 @@ void draw_maze(map_type wall, map_type floor,
 
 		int currentheight = highmaps[(floortile / 5) * 320 * IMAGE_HEIGHT
 			+ (floortile % 5) * IMAGE_WIDTH
-			+ (yview % IMAGE_HEIGHT) * 320
-			+ (xview % IMAGE_WIDTH)];
+			+ WRAP(yview, IMAGE_HEIGHT) * 320
+			+ WRAP(xview, IMAGE_WIDTH)];
 
 		// First screen row to draw:
 
